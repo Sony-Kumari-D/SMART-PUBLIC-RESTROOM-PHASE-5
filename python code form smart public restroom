@@ -1,0 +1,72 @@
+import random
+
+class SmartRestroom:
+    def __init__(self):
+        self.occupancy_sensor = False
+        self.soap_dispenser_level = 100  # Initial soap level
+        self.paper_towel_level = 100    # Initial paper towel level
+        self.occupied = False
+
+    def check_occupancy(self):
+        # Simulate an occupancy sensor
+        self.occupancy_sensor = random.choice([True, False])
+
+    def dispense_soap(self):
+        if self.soap_dispenser_level > 0:
+            self.soap_dispenser_level -= 1
+            print("Soap dispensed.")
+        else:
+            print("Soap dispenser is empty.")
+
+    def dispense_paper_towel(self):
+        if self.paper_towel_level > 0:
+            self.paper_towel_level -= 1
+            print("Paper towel dispensed.")
+        else:
+            print("Paper towel dispenser is empty.")
+
+    def use_restroom(self):
+        if self.occupancy_sensor:
+            print("Occupied. Please wait.")
+        else:
+            self.occupied = True
+            self.check_occupancy()
+            print("Restroom is now occupied.")
+
+    def exit_restroom(self):
+        self.occupied = False
+        self.check_occupancy()
+        print("Restroom is now vacant.")
+
+    def display_status(self):
+        print(f"Occupancy: {'Occupied' if self.occupied else 'Vacant'}")
+        print(f"Soap Dispenser Level: {self.soap_dispenser_level}%")
+        print(f"Paper Towel Level: {self.paper_towel_level}%")
+
+if __name__ == "__main__":
+    restroom = SmartRestroom()
+    
+    while True:
+        print("1. Use Restroom")
+        print("2. Exit Restroom")
+        print("3. Dispense Soap")
+        print("4. Dispense Paper Towel")
+        print("5. Check Restroom Status")
+        print("6. Quit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            restroom.use_restroom()
+        elif choice == "2":
+            restroom.exit_restroom()
+        elif choice == "3":
+            restroom.dispense_soap()
+        elif choice == "4":
+            restroom.dispense_paper_towel()
+        elif choice == "5":
+            restroom.display_status()
+        elif choice == "6":
+            break
+        else:
+            print("Invalid choice. Please try again.")
